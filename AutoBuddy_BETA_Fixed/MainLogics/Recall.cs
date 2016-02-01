@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using AutoBuddy.Humanizers;
 using AutoBuddy.Utilities.AutoShop;
@@ -141,14 +141,12 @@ AutoBuddy won't recall if you have less gold than needed for next item.
 
         private void CastRecall()
         {
-            if (Game.Time < lastRecallTime || ObjectManager.Player.IsRecalling() || ObjectManager.Player.Distance(spawn) < 500) return;
-            lastRecallTime = Game.Time + 2f;
+            if (Game.Time < lastRecallTime || AutoWalker.Recalling() || ObjectManager.Player.Distance(spawn) < 500) return;
             Core.DelayAction(CastRecall2, 300);
         }
         private void CastRecall2()//Kappa
         {
-            if (ObjectManager.Player.IsRecalling() || ObjectManager.Player.Distance(spawn) < 500) return;
-            lastRecallTime = Game.Time + 2f;
+            if (AutoWalker.Recalling() || ObjectManager.Player.Distance(spawn) < 500) return;
             AutoWalker.SetMode(Orbwalker.ActiveModes.None);
             ObjectManager.Player.Spellbook.CastSpell(SpellSlot.Recall);
         }

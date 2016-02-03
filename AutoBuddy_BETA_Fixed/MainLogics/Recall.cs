@@ -142,7 +142,6 @@ AutoBuddy won't recall if you have less gold than needed for next item.
         private void CastRecall()
         {
             if (Game.Time < lastRecallTime || ObjectManager.Player.Distance(spawn) < 500) return;
-            lastRecallTime = Game.Time + 2f;
             ObjectManager.Player.Spellbook.CastSpell(SpellSlot.Recall);           
         }
     }

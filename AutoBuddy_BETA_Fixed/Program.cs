@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -34,8 +34,8 @@ namespace AutoBuddy
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
 
-            Telemetry.Init(Path.Combine(Environment.GetFolderPath(
-Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
+//            Telemetry.Init(Path.Combine(Environment.GetFolderPath(
+//Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
             createFS();
             Chat.Print("AutoBuddy will start in 5 seconds. ");
             Core.DelayAction(Start, 5000);
@@ -161,12 +161,12 @@ Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
 
         private static void createFS()
         {
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Builds"));
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Skills"));
+            //Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
+            //    Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
+            //Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
+            //    Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Builds"));
+            //Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
+            //    Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Skills"));
         }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="MyChampLogic\Kayle.cs" />
     <Compile Include="MyChampLogic\Sivir.cs" />
     <Compile Include="MyChampLogic\Azir.cs" />
+    <Compile Include="MyChampLogic\Morgana.cs" />
     <Compile Include="MyChampLogic\Xerath.cs" />
     <Compile Include="MyChampLogic\Tristana.cs" />
     <Compile Include="MyChampLogic\Soraka.cs" />

@@ -152,6 +152,9 @@ namespace AutoBuddy
                 case Champion.Azir:
                     myChamp = new Azir();
                     break;
+                case Champion.Xerath:
+                    myChamp = new Xerath();
+                    break;
             }
             CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Skills"));

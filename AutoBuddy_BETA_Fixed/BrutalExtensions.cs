@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,17 +16,25 @@ namespace AutoBuddy
 {
     internal static class BrutalExtensions
     {
+        
+        //This was causing AutoBuddy to not load in Medium bot games :/
+        //public static string GetGameType()
+        //{
+
+        //    if (EntityManager.Heroes.Allies.Count < 5 || EntityManager.Heroes.Allies.Count(en=>en.Name.EndsWith(" Bot"))>1)
+        //        return "custom";
+            
+        //    if (EntityManager.Heroes.Enemies.All(en => en.Name.EndsWith(" Bot")))
+        //    {
+        //        return EntityManager.Heroes.Enemies.All(en =>en.SkinId==0) ? "bot_easy" : "bot_intermediate";
+        //    }
+        //    return "normal";
+        //}
+
+
         public static string GetGameType()
         {
-
-            if (EntityManager.Heroes.Allies.Count < 5 || EntityManager.Heroes.Allies.Count(en=>en.Name.EndsWith(" Bot"))>1)
-                return "custom";
-            
-            if (EntityManager.Heroes.Enemies.All(en => en.Name.EndsWith(" Bot")))
-            {
-                return EntityManager.Heroes.Enemies.All(en =>en.SkinId==0) ? "bot_easy" : "bot_intermediate";
-            }
-            return "normal";
+            return "custom";
         }
         public static Lane GetLane(this Obj_AI_Minion min)
         {

@@ -34,8 +34,8 @@ namespace AutoBuddy
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
 
-//            Telemetry.Init(Path.Combine(Environment.GetFolderPath(
-//Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
+           // Telemetry.Init(Path.Combine(Environment.GetFolderPath(
+// Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
             createFS();
             Chat.Print("AutoBuddy will start in 5 seconds. Updated for 6.4 by TheYasuoMain");
             Core.DelayAction(Start, 5000);
@@ -77,7 +77,7 @@ namespace AutoBuddy
             menu.Add("oldWalk", new CheckBox("Use old orbwalking(press f5 after)", false));
             menu.Add("reselectlane", new CheckBox("Reselect lane", false));
             menu.Add("debuginfo", new CheckBox("Draw debug info(press f5 after)", true));
-            menu.Add("l1", new Label("By Christian Brutal Sniper - Fixed by EnfermeraSexy"));
+            menu.Add("l1", new Label("By Christian Brutal Sniper - Fixed by EnfermeraSexy & TheYasuoMain"));
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             menu.Add("l2",
                 new Label("Version " + v.Major + "." + v.Minor + " Build time: " + v.Build % 100 + " " +

@@ -4,7 +4,7 @@ using EloBuddy.SDK;
 
 namespace AutoBuddy.MyChampLogic
 {
-    internal class Generic : IChampLogic
+    internal class Ryze : IChampLogic
     {
 
         public float MaxDistanceForAA { get { return int.MaxValue; } }
@@ -14,7 +14,7 @@ namespace AutoBuddy.MyChampLogic
         public Spell.Active Q;
         public Spell.Skillshot W, E, R;
 
-        public Generic()
+        public Ryze()
         {
             skillSequence = new[] {2, 1, 3, 2, 2, 4, 2, 1, 2, 1, 4, 1, 1, 3, 3, 4, 3, 3};
             ShopSequence =

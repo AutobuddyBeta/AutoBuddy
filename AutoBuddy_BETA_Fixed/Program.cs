@@ -37,8 +37,8 @@ namespace AutoBuddy
 //            Telemetry.Init(Path.Combine(Environment.GetFolderPath(
 //Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
             createFS();
-            Chat.Print("AutoBuddy will start in 3 seconds. Updated for 6.4 by TheYasuoMain");
-            Core.DelayAction(Start, 3000);
+            Chat.Print("AutoBuddy will start in 5 seconds. Updated for 6.4 by TheYasuoMain");
+            Core.DelayAction(Start, 5000);
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
             menu.Add("sep1", new Separator(1));
             CheckBox c =

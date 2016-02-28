@@ -63,6 +63,8 @@
     <Compile Include="Disrespekt.cs" />
     <Compile Include="MyChampLogic\Annie.cs" />
     <Compile Include="MyChampLogic\Anivia.cs" />
+    <Compile Include="MyChampLogic\Corki.cs" />
+    <Compile Include="MyChampLogic\Brand.cs" />
     <Compile Include="MyChampLogic\Ezreal.cs" />
     <Compile Include="AutoWalker.cs" />
     <Compile Include="BrutalExtensions.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="MyChampLogic\Ahri.cs" />
     <Compile Include="MyChampLogic\Kayle.cs" />
     <Compile Include="MyChampLogic\Sivir.cs" />
+    <Compile Include="MyChampLogic\Azir.cs" />
     <Compile Include="MyChampLogic\Tristana.cs" />
     <Compile Include="MyChampLogic\Soraka.cs" />
     <Compile Include="MyChampLogic\Ryze.cs" />

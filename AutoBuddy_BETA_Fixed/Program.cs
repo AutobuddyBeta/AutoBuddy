@@ -122,6 +122,15 @@ namespace AutoBuddy
                 case Champion.Ryze:
                     myChamp = new Ryze();
                     break;
+                case Champion.Soraka:
+                    myChamp = new Ryze();
+                    break;
+                case Champion.Kayle:
+                    myChamp = new Ryze();
+                    break;
+                case Champion.Tristana:
+                    myChamp = new Tristana();
+                    break;
             }
             CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Skills"));

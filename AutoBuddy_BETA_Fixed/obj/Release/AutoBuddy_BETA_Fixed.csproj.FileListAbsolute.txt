@@ -10,3 +10,4 @@ C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\Sharp
 C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\SharpDX.dll
 C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Release\AutoBuddy.exe
 C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Release\AutoBuddy.pdb
+C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Release\AutoBuddy_BETA_Fixed.csprojResolveAssemblyReference.cache

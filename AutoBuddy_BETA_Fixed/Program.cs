@@ -21,6 +21,11 @@ namespace AutoBuddy
 {
     internal static class Program
     {
+
+        private static AIHeroClient myHero
+        {
+            get { return Player.Instance; }
+        }
         private static Menu menu;
         private static IChampLogic myChamp;
         private static LogicSelector Logic { get; set; }
@@ -35,18 +40,12 @@ namespace AutoBuddy
 
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
-
-
-
-            //Only for kalista
-            if (Player.Instance.ChampionName == "Kalista")
+            if (myHero.Hero == Champion.Kalista)
             {
                 BlackSpear = new Item(ItemId.The_Black_Spear);
                 Chat.Print("Auto Black Spear loaded! Thanks @Enelx");
                 Game.OnUpdate += On_Update;
             }
-
-
 
             // Telemetry.Init(Path.Combine(Environment.GetFolderPath(
             // Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
@@ -110,24 +109,19 @@ namespace AutoBuddy
         }
 
         //For Kalista
-        private static void TheBlackSpear()
+        private static void On_Update(EventArgs args)
         {
-            if (BlackSpear.IsOwned() && Player.Instance.IsInShopRange())
+            if (BlackSpear.IsOwned())
             {
                 foreach (AIHeroClient ally in EntityManager.Heroes.Allies)
                 {
                     if (ally != null)
                     {
+                        Console.Write("Searching for target");
                         BlackSpear.Cast(ally);
                     }
                 }
             }
-        }
-
-
-        private static void On_Update(EventArgs args)
-        {
-            TheBlackSpear();
         }
         //For Kalista
 

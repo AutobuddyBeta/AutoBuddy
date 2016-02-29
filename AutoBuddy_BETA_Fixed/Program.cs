@@ -24,6 +24,8 @@ namespace AutoBuddy
         private static Menu menu;
         private static IChampLogic myChamp;
         private static LogicSelector Logic { get; set; }
+        //For kalista
+        public static Item BlackSpear;
 
         public static void Main()
         {
@@ -34,8 +36,20 @@ namespace AutoBuddy
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
 
-           // Telemetry.Init(Path.Combine(Environment.GetFolderPath(
-// Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
+
+
+            //Only for kalista
+            if (Player.Instance.ChampionName == "Kalista")
+            {
+                BlackSpear = new Item(ItemId.The_Black_Spear);
+                Chat.Print("Auto Black Spear loaded! Thanks @Enelx");
+                Game.OnUpdate += On_Update;
+            }
+
+
+
+            // Telemetry.Init(Path.Combine(Environment.GetFolderPath(
+            // Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
             createFS();
             Chat.Print("AutoBuddy will start in 5 seconds. Updated for 6.4 by TheYasuoMain");
             Core.DelayAction(Start, 5000);
@@ -95,7 +109,27 @@ namespace AutoBuddy
             AutoWalker.newPF = args.NewValue;
         }
 
+        //For Kalista
+        private static void TheBlackSpear()
+        {
+            if (BlackSpear.IsOwned() && Player.Instance.IsInShopRange())
+            {
+                foreach (AIHeroClient ally in EntityManager.Heroes.Allies)
+                {
+                    if (ally != null)
+                    {
+                        BlackSpear.Cast(ally);
+                    }
+                }
+            }
+        }
 
+
+        private static void On_Update(EventArgs args)
+        {
+            TheBlackSpear();
+        }
+        //For Kalista
 
         private static void Start()
         {
@@ -157,6 +191,15 @@ namespace AutoBuddy
                     break;
                 case Champion.Morgana:
                     myChamp = new Morgana();
+                    break;
+                case Champion.Draven:
+                    myChamp = new Draven();
+                    break;
+                case Champion.Twitch:
+                    myChamp = new Twitch();
+                    break;
+                case Champion.Kalista:
+                    myChamp = new Kalista();
                     break;
             }
             CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(Environment.GetFolderPath(

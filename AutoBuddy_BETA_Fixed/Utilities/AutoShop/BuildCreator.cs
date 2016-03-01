@@ -36,7 +36,7 @@ namespace AutoBuddy.Utilities.AutoShop
 
             string specialPath = null;
          
-           specialPath = SandboxConfig.DataDirectory + "\\EloBuddy\\AutoBuddy\\Builds\\";
+           specialPath = SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds\\";
            
 
             // OLD buildFile = Path.Combine(specialPath + "\\" + AutoWalker.p.ChampionName + "-" + Game.MapId + ".txt");
@@ -179,6 +179,7 @@ you can copy/share them.
                     AddElement(BrutalItemInfo.GetItemByID(ac.item), ac.t);
                     Console.Write("Custom Build Loading ");
                 }
+                Chat.Print("Loaded build from: " + buildFile);
             }
             catch (Exception e)
             {

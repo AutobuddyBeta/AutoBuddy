@@ -71,6 +71,8 @@
     <Compile Include="MyChampLogic\Cassiopeia.cs" />
     <Compile Include="MyChampLogic\Ahri.cs" />
     <Compile Include="MyChampLogic\Draven.cs" />
+    <Compile Include="MyChampLogic\Leblanc.cs" />
+    <Compile Include="MyChampLogic\Velkoz.cs" />
     <Compile Include="MyChampLogic\Kalista.cs" />
     <Compile Include="MyChampLogic\Twitch.cs" />
     <Compile Include="MyChampLogic\Kayle.cs" />

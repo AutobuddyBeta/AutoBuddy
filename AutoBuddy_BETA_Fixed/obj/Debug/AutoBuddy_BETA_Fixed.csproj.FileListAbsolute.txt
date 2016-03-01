@@ -1,2 +1,3 @@
 C:\Users\jonat\Downloads\AutoBuddy-master\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.exe.config
 C:\Users\jonat\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.exe.config
+C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.exe.config

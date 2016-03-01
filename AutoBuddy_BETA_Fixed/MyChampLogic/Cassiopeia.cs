@@ -6,6 +6,7 @@ using AutoBuddy.MainLogics;
 using AutoBuddy.Utilities;
 using AutoBuddy.Utilities.AutoShop;
 using EloBuddy;
+using EloBuddy.Sandbox;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 using EloBuddy.SDK.Menu;
@@ -39,14 +40,14 @@ namespace AutoBuddy.MyChampLogic
                 log = true;
                 AutoWalker.EndGame += end;
                 file500 =
-                    new StreamWriter(Path.Combine(Environment.GetFolderPath(
-                        Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred500"), true);
+                    new StreamWriter(Path.Combine(SandboxConfig.DataDirectory
+                        , "AutoBuddy\\qPred500"), true);
                 file600 =
-                    new StreamWriter(Path.Combine(Environment.GetFolderPath(
-                        Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred600"), true);
+                    new StreamWriter(Path.Combine(SandboxConfig.DataDirectory
+                        , "AutoBuddy\\qPred600"), true);
                 file700 =
-                    new StreamWriter(Path.Combine(Environment.GetFolderPath(
-                        Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred700"), true);
+                    new StreamWriter(Path.Combine(SandboxConfig.DataDirectory
+                        , "AutoBuddy\\qPred700"), true);
                 Core.DelayAction(fl, 10000);
             }
             ShopSequence =
@@ -75,12 +76,12 @@ namespace AutoBuddy.MyChampLogic
             file500.Close();
             file600.Close();
             file700.Close();
-            Telemetry.SendFileAndDelete(Path.Combine(Environment.GetFolderPath(
-    Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred700"), "cassQ700");
-            Telemetry.SendFileAndDelete(Path.Combine(Environment.GetFolderPath(
-Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred500"), "cassQ500");
-            Telemetry.SendFileAndDelete(Path.Combine(Environment.GetFolderPath(
-Environment.SpecialFolder.ApplicationData), "AutoBuddy\\qPred600"), "cassQ600");
+            Telemetry.SendFileAndDelete(Path.Combine(SandboxConfig.DataDirectory
+    , "AutoBuddy\\qPred700"), "cassQ700");
+            Telemetry.SendFileAndDelete(Path.Combine(SandboxConfig.DataDirectory
+, "AutoBuddy\\qPred500"), "cassQ500");
+            Telemetry.SendFileAndDelete(Path.Combine(SandboxConfig.DataDirectory
+, "AutoBuddy\\qPred600"), "cassQ600");
 
         }
 

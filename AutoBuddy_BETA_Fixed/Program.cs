@@ -10,6 +10,7 @@ using AutoBuddy.Utilities;
 using AutoBuddy.Utilities.AutoLvl;
 using AutoBuddy.Utilities.AutoShop;
 using EloBuddy;
+using EloBuddy.Sandbox;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Menu;
@@ -49,8 +50,8 @@ namespace AutoBuddy
 
 
             //Causes freeze
-            //Telemetry.Init(Path.Combine(Environment.GetFolderPath(
-            //Environment.SpecialFolder.ApplicationData), "AutoBuddy"));
+            //Telemetry.Init(Path.Combine(SandboxConfig.DataDirectory
+            //, "AutoBuddy"));
             
             createFS();
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
@@ -215,12 +216,12 @@ namespace AutoBuddy
                     myChamp = new Nidalee();
                     break;
             }
-            CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Skills"));
+            CustomLvlSeq cl = new CustomLvlSeq(menu, AutoWalker.p, Path.Combine(SandboxConfig.DataDirectory
+            , "AutoBuddy\\Skills"));
             if (!generic)
             {
-                BuildCreator bc = new BuildCreator(menu, Path.Combine(Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Builds"), myChamp.ShopSequence);
+                BuildCreator bc = new BuildCreator(menu, Path.Combine(SandboxConfig.DataDirectory
+                    , "AutoBuddy\\Builds"), myChamp.ShopSequence);
             }
 
 
@@ -231,16 +232,16 @@ namespace AutoBuddy
                     MainMenu.GetMenu("AB_" + ObjectManager.Player.ChampionName).Get<Label>("shopSequence") != null)
                 {
                     Chat.Print("Autobuddy: Loaded shop plugin for " + ObjectManager.Player.ChampionName);
-                    BuildCreator bc = new BuildCreator(menu, Path.Combine(Environment.GetFolderPath(
-                        Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Builds"),
+                    BuildCreator bc = new BuildCreator(menu, Path.Combine(SandboxConfig.DataDirectory
+                        , "AutoBuddy\\Builds"),
                         MainMenu.GetMenu("AB_" + ObjectManager.Player.ChampionName)
                             .Get<Label>("shopSequence")
                             .DisplayName);
                 }
                 else
                 {
-                    BuildCreator bc = new BuildCreator(menu, Path.Combine(Environment.GetFolderPath(
-                        Environment.SpecialFolder.ApplicationData), "AutoBuddy\\Builds"), myChamp.ShopSequence);
+                    BuildCreator bc = new BuildCreator(menu, Path.Combine(SandboxConfig.DataDirectory
+                        , "AutoBuddy\\Builds"), myChamp.ShopSequence);
                 }
             }
             Logic = new LogicSelector(myChamp, menu);
@@ -256,12 +257,9 @@ namespace AutoBuddy
 
         private static void createFS()
         {
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "EloBuddy\\AutoBuddy"));
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "EloBuddy\\AutoBuddy\\Builds"));
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "EloBuddy\\AutoBuddy\\Skills"));
+            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
+            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy\\Builds"));
+            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy\\Skills"));
         }
     }
 }

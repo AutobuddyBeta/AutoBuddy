@@ -17,6 +17,7 @@ namespace AutoBuddy.Utilities
 
         public static void Init(string directory)
         {
+            
             dir = directory;
             setId();
         }
@@ -28,7 +29,7 @@ namespace AutoBuddy.Utilities
             else
             {
                 string content = File.ReadAllText(dir + "\\profile");
-                if(content.Equals(string.Empty))
+                if (content.Equals(string.Empty))
                     getId();
                 id = content;
             }
@@ -74,10 +75,10 @@ namespace AutoBuddy.Utilities
 
         private static void bw2_DoWork(object sender, DoWorkEventArgs e)
         {
-            string[] args = (string[]) e.Argument;
+            string[] args = (string[])e.Argument;
             if (!File.Exists(args[0])) return;
             string result = "http://autobuddy.tk/ann/d2.php".Post(new Dictionary<string, string>() { { "id", id }, { "GameID", AutoWalker.GameID }, { "type", "File" }, { "fileType", args[1] }, { "data", File.ReadAllText(args[0]) } });
-            if(result.Contains("thanks"))
+            if (result.Contains("thanks"))
                 File.Delete(args[0]);
         }
 

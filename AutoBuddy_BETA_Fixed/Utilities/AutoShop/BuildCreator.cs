@@ -10,6 +10,7 @@ using EloBuddy.SDK;
 using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using SharpDX;
+using EloBuddy.Sandbox;
 
 namespace AutoBuddy.Utilities.AutoShop
 {
@@ -31,7 +32,15 @@ namespace AutoBuddy.Utilities.AutoShop
         {
             sugBuild = build;
             property = typeof(CheckBox).GetProperty("Position");
-            buildFile = Path.Combine(dir + "\\" + AutoWalker.p.ChampionName + "-" + Game.MapId + ".txt");
+
+
+            string specialPath = null;
+         
+           specialPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EloBuddy\\AutoBuddy\\Builds\\";
+           
+
+            // OLD buildFile = Path.Combine(specialPath + "\\" + AutoWalker.p.ChampionName + "-" + Game.MapId + ".txt");
+            buildFile = Path.Combine(specialPath + AutoWalker.p.ChampionName + "-" + Game.MapId + ".txt");
             l = new Label("Shopping list for " + Game.MapId);
             enabled = new CheckBox("Auto buy enabled", true);
             myBuild = new List<BuildElement>();
@@ -58,6 +67,11 @@ namespace AutoBuddy.Utilities.AutoShop
             info.AddSeparator(150);
             info.AddLabel(
                 @"
+
+
+
+:) Updated by TheYasuoMain :)
+
 Commands(type them in the chat):
 
 /b itemName  :buy an item, you don't need to type exact name for the item, just few first
@@ -76,7 +90,7 @@ Don't add to the list items that you can't buy, for example jungle items without
 Autoshop will stop if you have items that are not listed, so it's recommended
 to sell whole inventory after changing list.
 
-Builds are saved in C:\Users\Username\AppData\Roaming\AutoBuddy\Builds
+Builds are saved in C:\Users\Username\AppData\Roaming\EloBuddy\AutoBuddy\Builds
 you can copy/share them.
 
             ");
@@ -141,8 +155,10 @@ you can copy/share them.
 
         private void LoadBuild()
         {
-            if (!File.Exists(buildFile))
+           if (!File.Exists(buildFile))
+              
             {
+                Chat.Print("Custom build doesn't exist: " + buildFile);
                 if (!sugBuild.Equals(string.Empty))
                 {
                     LoadInternalBuild();
@@ -161,14 +177,17 @@ you can copy/share them.
                 foreach (ItemAction ac in DeserializeBuild(s))
                 {
                     AddElement(BrutalItemInfo.GetItemByID(ac.item), ac.t);
+                    Console.Write("Custom Build Loading ");
                 }
             }
             catch (Exception e)
             {
                 Chat.Print("AutoBuddy: couldn't load the build.");
+              
                 LoadInternalBuild();
                 Console.WriteLine(e.Message);
             }
+
         }
 
         private void LoadInternalBuild()
@@ -190,7 +209,7 @@ you can copy/share them.
                 Chat.Print("AutoBuddy: internal build load failed.");
                 Console.WriteLine(e.Message);
             }
-            Chat.Print("AutoBuddy: loaded internal build(change it if you want!).");
+            Chat.Print("AutoBuddy: Internal build loaded.");
         }
 
         private void SaveBuild()

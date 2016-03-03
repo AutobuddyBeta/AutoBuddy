@@ -36,7 +36,7 @@ namespace AutoBuddy.Utilities.AutoShop
 
             string specialPath = null;
          
-           specialPath = SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds\\";
+           specialPath = SandboxConfig.DataDirectory + "AutoBuddy\\Builds\\";
            
 
             // OLD buildFile = Path.Combine(specialPath + "\\" + AutoWalker.p.ChampionName + "-" + Game.MapId + ".txt");

@@ -257,15 +257,9 @@ namespace AutoBuddy
 
         private static void createFS()
         {
-<<<<<<< HEAD
             System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
             System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
             System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
-=======
-            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "\\AutoBuddy"));
-            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "\\AutoBuddy\\Builds"));
-            Directory.CreateDirectory(Path.Combine(SandboxConfig.DataDirectory, "\\AutoBuddy\\Skills"));
->>>>>>> origin/master
         }
     }
 }

@@ -26,7 +26,7 @@ namespace AutoBuddy
         public static Spell.Skillshot Flash;
         public static Spell.Targeted Teleport, Ignite, Smite, Exhaust;
         public static readonly Obj_HQ MyNexus;
-        public static readonly Obj_HQ EneMyNexus;recalling
+        public static readonly Obj_HQ EneMyNexus;
         public static readonly AIHeroClient p;
         public static readonly Obj_AI_Turret EnemyLazer;
         private static Orbwalker.ActiveModes activeMode = Orbwalker.ActiveModes.None;

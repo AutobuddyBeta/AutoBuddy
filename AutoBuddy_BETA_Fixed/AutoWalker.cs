@@ -26,7 +26,7 @@ namespace AutoBuddy
         public static Spell.Skillshot Flash;
         public static Spell.Targeted Teleport, Ignite, Smite, Exhaust;
         public static readonly Obj_HQ MyNexus;
-        public static readonly Obj_HQ EneMyNexus;
+        public static readonly Obj_HQ EneMyNexus;recalling
         public static readonly AIHeroClient p;
         public static readonly Obj_AI_Turret EnemyLazer;
         private static Orbwalker.ActiveModes activeMode = Orbwalker.ActiveModes.None;
@@ -37,7 +37,6 @@ namespace AutoBuddy
         private static readonly NavGraph NavGraph;
         private static bool oldWalk;
         public static bool newPF;
-        private static bool recalling;
         public static EventHandler EndGame;
         static AutoWalker()
         {
@@ -73,21 +72,12 @@ namespace AutoBuddy
             Core.DelayAction(OnEndGame, 20000);
             updateItems();
             oldOrbwalk();
-            EloBuddy.SDK.Events.Teleport.OnTeleport += Teleport_OnTeleport;
             Game.OnTick += OnTick;
-        }
-
-        private static void Teleport_OnTeleport(Obj_AI_Base sender, EloBuddy.SDK.Events.Teleport.TeleportEventArgs args)
-        {
-            if (sender.NetworkId==p.NetworkId && args.Type == TeleportType.Recall)
-            {
-                recalling = args.Status == TeleportStatus.Start;
-            }
         }
 
         public static bool Recalling()
         {
-            return recalling;
+            return p.IsRecalling();
         }
 
         private static void OnEndGame()

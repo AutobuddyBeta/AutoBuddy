@@ -26,7 +26,7 @@ namespace AutoBuddy
         public static Spell.Skillshot Flash;
         public static Spell.Targeted Teleport, Ignite, Smite, Exhaust;
         public static readonly Obj_HQ MyNexus;
-        public static readonly Obj_HQ EneMyNexus;recalling
+        public static readonly Obj_HQ EneMyNexus;
         public static readonly AIHeroClient p;
         public static readonly Obj_AI_Turret EnemyLazer;
         private static Orbwalker.ActiveModes activeMode = Orbwalker.ActiveModes.None;
@@ -42,14 +42,12 @@ namespace AutoBuddy
         {
             GameID = DateTime.Now.Ticks + ""+RandomString(10);
             newPF = MainMenu.GetMenu("AB").Get<CheckBox>("newPF").CurrentValue;
-            NavGraph=new NavGraph(Path.Combine(SandboxConfig.DataDirectory
-    , "AutoBuddy"));
+            NavGraph=new NavGraph(Path.Combine(SandboxConfig.DataDirectory, "AutoBuddy"));
             PfNodes=new List<Vector3>();
             color = new ColorBGRA(79, 219, 50, 255);
             MyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsAlly);
             EneMyNexus = ObjectManager.Get<Obj_HQ>().First(n => n.IsEnemy);
-            EnemyLazer =
-                ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(tur => !tur.IsAlly && tur.GetLane() == Lane.Spawn);
+            EnemyLazer = ObjectManager.Get<Obj_AI_Turret>().FirstOrDefault(tur => !tur.IsAlly && tur.GetLane() == Lane.Spawn);
             p = ObjectManager.Player;
             initSummonerSpells();
 

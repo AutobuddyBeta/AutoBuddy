@@ -53,7 +53,7 @@ namespace AutoBuddy
             //Telemetry.Init(Path.Combine(SandboxConfig.DataDirectory
             //, "AutoBuddy"));
             
-            //createFS();
+            createFS();
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
             Chat.Print("Custom builds fixed, read EB post.");
             Core.DelayAction(Start, 5000);
@@ -257,9 +257,24 @@ namespace AutoBuddy
 
         private static void createFS()
         {
-            System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
-            System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
-            System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
+            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
+            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
+            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
+
+            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy"))
+            {
+                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
+
+            }
+            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds"))
+            {
+                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
+            }
+            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills"))
+            {
+                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
+            }
+
         }
     }
 }

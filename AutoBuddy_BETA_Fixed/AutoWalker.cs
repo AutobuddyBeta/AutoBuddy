@@ -93,13 +93,11 @@ namespace AutoBuddy
             if (MainMenu.GetMenu("AB").Get<CheckBox>("autoclose").CurrentValue)
             Core.DelayAction(() =>
             {
-
-                foreach (Process process in Process.GetProcessesByName("League of Legends"))
-                {
-
-                    process.CloseMainWindow();
-                }
-
+                /* foreach (Process process in Process.GetProcessesByName("League of Legends"))
+                 {
+                     process.CloseMainWindow();
+                 }*/                
+                Game.QuitGame(); // new close game from API 6.5
             }, 15000);
 
         }

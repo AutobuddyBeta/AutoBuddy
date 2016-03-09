@@ -13,3 +13,11 @@ C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy_BETA_Fixed.csproj.GenerateResource.Cache
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy.exe
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy.pdb
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.exe.config
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy.exe
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy.pdb
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.exe
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\AutoBuddy.pdb
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy_BETA_Fixed.csprojResolveAssemblyReference.cache
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy.Properties.Resources.resources
+D:\Elobuddy\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Debug\AutoBuddy_BETA_Fixed.csproj.GenerateResource.Cache

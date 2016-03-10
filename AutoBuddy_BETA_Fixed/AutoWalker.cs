@@ -91,15 +91,15 @@ namespace AutoBuddy
                 EndGame(null, new EventArgs());
 
             if (MainMenu.GetMenu("AB").Get<CheckBox>("autoclose").CurrentValue)
-            /*Core.DelayAction(() =>
-            {
-                 foreach (Process process in Process.GetProcessesByName("League of Legends"))
-                 {
-                     process.CloseMainWindow();
-                 }*              
-               
-            }, 15000);*/
-            Game.QuitGame(); // new close game from API 6.5
+                Core.DelayAction(() =>
+                {
+                    /* foreach (Process process in Process.GetProcessesByName("League of Legends"))
+                     {
+                         process.CloseMainWindow();
+                     } */     
+                      Game.QuitGame(); // new close game from API 6.5       
+
+                }, 14000);
         }
 
         public static Vector3 Target { get; private set; }

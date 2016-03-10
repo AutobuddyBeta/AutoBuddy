@@ -52,6 +52,10 @@
     <Reference Include="SharpDX.Direct3D9">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\EloBuddy\System\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.XInput, Version=2.6.3.0, Culture=neutral, PublicKeyToken=2306ab36a61019a8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\SharpDX.XInput.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -142,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\item.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

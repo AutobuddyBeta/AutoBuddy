@@ -80,7 +80,8 @@ namespace AutoBuddy
                 {
                     sender.DisplayName = lanes[changeArgs.NewValue];
                 };
-            Slider hpValue = menu.Add("HPPot", new Slider("Minimum HP to use Health Pot?", 43,1,100));
+            Slider hpValue = menu.Add("HPPot", new Slider("Minimum HP% to use Health Pot?", 43,1,100));
+            hpvaluePot = hpValue.CurrentValue;
             hpValue.OnValueChange +=
                 delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs changeArgs)
                 {

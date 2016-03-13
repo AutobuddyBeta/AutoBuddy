@@ -25,3 +25,4 @@ C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Releas
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Release\AutoBuddy.exe
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\obj\Release\AutoBuddy.pdb
 C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\TheYasuoMain\Documents\GitHub\AutoBuddy\AutoBuddy_BETA_Fixed\bin\Release\SharpDX.XInput.dll

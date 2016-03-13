@@ -32,6 +32,7 @@ namespace AutoBuddy
         private static LogicSelector Logic { get; set; }
         //For kalista
         public static Item BlackSpear;
+        public static int hpvaluePot; 
 
         public static void Main()
         {
@@ -79,7 +80,12 @@ namespace AutoBuddy
                 {
                     sender.DisplayName = lanes[changeArgs.NewValue];
                 };
-
+            Slider hpValue = menu.Add("HPPot", new Slider("Minimum HP to use Health Pot?", 43,1,100));
+            hpValue.OnValueChange +=
+                delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs changeArgs)
+                {
+                    hpvaluePot = hpValue.CurrentValue;
+                };
             menu.Add("disablepings", new CheckBox("Disable pings", false));
             menu.Add("disablechat", new CheckBox("Disable chat", false));
             CheckBox newpf = new CheckBox("Use smart pathfinder", true);
@@ -116,6 +122,9 @@ namespace AutoBuddy
         //For Kalista
         private static void On_Update(EventArgs args)
         {
+
+            Chat.Print(Shop.CanShop);
+
             if (BlackSpear.IsOwned())
             {
                 foreach (AIHeroClient ally in EntityManager.Heroes.Allies)

@@ -91,7 +91,14 @@ namespace AutoBuddy.MainLogics
 
         private void Game_OnTick(EventArgs args)
         {
-
+            if (Shop.CanShop == false)
+            {
+                int hppotval = Program.hpvaluePot;
+                if (ObjectManager.Player.HealthPercent() < hppotval)
+                {
+                    AutoWalker.UseHPot();
+                }
+            }
             if (!active||myTurret==null) return;
             if (!AutoWalker.p.IsDead() && (myTurret.Health <= 0 || enemyTurret.Health <= 0))
             {

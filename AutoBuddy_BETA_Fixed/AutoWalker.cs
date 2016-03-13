@@ -140,6 +140,8 @@ namespace AutoBuddy
 
         public static void WalkTo(Vector3 tgt)
         {
+
+            
             if (!newPF)
             {
                 Target = tgt;
@@ -171,6 +173,7 @@ namespace AutoBuddy
                     Target = tgt;
                 }
             }
+            
         }
 
 
@@ -196,6 +199,7 @@ namespace AutoBuddy
         }
         public static void UseHPot()
         {
+            updateItems();
             if (hpSlot == -1) return;
             p.InventoryItems[hpSlot].Cast();
             hpSlot = -1;

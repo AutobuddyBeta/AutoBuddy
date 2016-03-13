@@ -82,11 +82,8 @@ namespace AutoBuddy.MainLogics
 
         private void Game_OnTick(EventArgs args)
         {
-            if (AutoWalker.p.HealthPercent<15&&AutoWalker.Ignite != null && AutoWalker.Ignite.IsReady())
-            {
-                AIHeroClient i = EntityManager.Heroes.Enemies.FirstOrDefault(en => en.Health < 50 + 20*AutoWalker.p.Level&&en.Distance(AutoWalker.p)<600);
-                if (i != null) AutoWalker.UseIgnite(i);
-            }
+
+           
             if (hits * 20 > AutoWalker.p.HealthPercent() || (hits2 >= 5 && AutoWalker.p.Level < 8 && AutoWalker.p.HealthPercent < 50 && !EntityManager.Heroes.Enemies.Any(en => en.IsVisible() && en.HealthPercent < 10 && en.Distance(AutoWalker.p) < current.myChamp.OptimalMaxComboDistance)))
             {
                 SetSpierdalanko(.5f);
@@ -100,10 +97,14 @@ namespace AutoBuddy.MainLogics
             if (!active)
             {
                 return;
-            }
-            if (ObjectManager.Player.HealthPercent() < 43)
+            }                       
+            if (Shop.CanShop == false)
             {
-                AutoWalker.UseHPot();
+                int hppotval = Program.hpvaluePot;
+                if (ObjectManager.Player.HealthPercent() < hppotval)
+                {
+                    AutoWalker.UseHPot();
+                }
             }
             if (Game.Time > spierdalanko)
             {
@@ -147,6 +148,14 @@ namespace AutoBuddy.MainLogics
                 AutoWalker.WalkTo(AutoWalker.p.Position.Away(enemyTurret, 1200));
                 AutoWalker.SetMode(Orbwalker.ActiveModes.Flee);
             }
+            /* Disable for now
+            
+            if (AutoWalker.p.HealthPercent<15&&AutoWalker.Ignite != null && AutoWalker.Ignite.IsReady())
+            {
+                AIHeroClient i = EntityManager.Heroes.Enemies.FirstOrDefault(en => en.Health < 50 + 20*AutoWalker.p.Level&&en.Distance(AutoWalker.p)<600);
+               if (i != null) AutoWalker.UseIgnite(i);
+            }
+            
             if (AutoWalker.p.HealthPercent < 10)
             {
                 if (AutoWalker.p.HealthPercent < 7)
@@ -156,6 +165,7 @@ namespace AutoBuddy.MainLogics
                 }
                 AutoWalker.UseHeal();
             }
+            
             if (EntityManager.Heroes.Enemies.Any(en => en.IsVisible() && en.Distance(AutoWalker.p) < 600))
             {
                 if (AutoWalker.p.HealthPercent < 30)
@@ -177,6 +187,7 @@ namespace AutoBuddy.MainLogics
                 if (AutoWalker.p.HealthPercent < 25)
                     AutoWalker.UseHeal();
             }
+            */
             current.myChamp.Survi();
         }
 

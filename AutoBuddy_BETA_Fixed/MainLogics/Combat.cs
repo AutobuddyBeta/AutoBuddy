@@ -101,10 +101,10 @@ namespace AutoBuddy.MainLogics
 
                 Obj_AI_Turret nearestEnemyTurret = posToWalk.GetNearestTurret();
 
-                if (victim.Health < 10 + 4 * AutoWalker.p.Level && EntityManager.Heroes.Allies.Any(al=>!al.IsDead()&&al.Distance(vicPos)<550))
-                    AutoWalker.UseIgnite(victim);
-                if (victim.Health + victim.HPRegenRate * 2.5f < 50 + 20 * AutoWalker.p.Level && vicPos.Distance(nearestEnemyTurret)<1350)
-                    AutoWalker.UseIgnite(victim);
+                //if (victim.Health < 10 + 4 * AutoWalker.p.Level && EntityManager.Heroes.Allies.Any(al=>!al.IsDead()&&al.Distance(vicPos)<550))
+                //    AutoWalker.UseIgnite(victim);
+                //if (victim.Health + victim.HPRegenRate * 2.5f < 50 + 20 * AutoWalker.p.Level && vicPos.Distance(nearestEnemyTurret)<1350)
+                //    AutoWalker.UseIgnite(victim);
                 lastMode = "combo";
                 if (AutoWalker.p.Distance(nearestEnemyTurret) < 950 + AutoWalker.p.BoundingRadius)
                 {
@@ -126,20 +126,29 @@ namespace AutoBuddy.MainLogics
                 AutoWalker.WalkTo(posToWalk);
 
 
-                if (AutoWalker.Ghost != null && AutoWalker.Ghost.IsReady() &&
-                    AutoWalker.p.HealthPercent()/victim.HealthPercent() > 2 &&
-                    victim.Distance(AutoWalker.p) > AutoWalker.p.AttackRange + victim.BoundingRadius + 150 &&
-                    victim.Distance(victim.Position.GetNearestTurret()) > 1500)
-                    AutoWalker.Ghost.Cast();
+                //if (AutoWalker.Ghost != null && AutoWalker.Ghost.IsReady() &&
+                //    AutoWalker.p.HealthPercent()/victim.HealthPercent() > 2 &&
+                //    victim.Distance(AutoWalker.p) > AutoWalker.p.AttackRange + victim.BoundingRadius + 150 &&
+                //    victim.Distance(victim.Position.GetNearestTurret()) > 1500)
+                //    AutoWalker.Ghost.Cast();
 
-                if (ObjectManager.Player.HealthPercent() < 35)
+                //if (ObjectManager.Player.HealthPercent() < 35)
+                //{
+                //    if (AutoWalker.p.HealthPercent < 25)
+                //        AutoWalker.UseSeraphs();
+                //    if (AutoWalker.p.HealthPercent < 20)
+                //        AutoWalker.UseBarrier();
+
+                //        AutoWalker.UseHPot();
+                //}
+
+                if (Shop.CanShop == false)
                 {
-                    if (AutoWalker.p.HealthPercent < 25)
-                        AutoWalker.UseSeraphs();
-                    if (AutoWalker.p.HealthPercent < 20)
-                        AutoWalker.UseBarrier();
-
+                    int hppotval = Program.hpvaluePot;
+                    if (ObjectManager.Player.HealthPercent() < hppotval)
+                    {
                         AutoWalker.UseHPot();
+                    }
                 }
             }
             else

@@ -36,12 +36,19 @@ namespace AutoBuddy
 
         public static void Main()
         {
+
+            
             Hacks.RenderWatermark = false;
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
         }
 
+      
+
+
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
+
+            
             if (myHero.Hero == Champion.Kalista)
             {
                 BlackSpear = new Item(ItemId.The_Black_Spear);
@@ -90,8 +97,11 @@ namespace AutoBuddy
             menu.Add("disablepings", new CheckBox("Disable pings", false));
             menu.Add("disablechat", new CheckBox("Disable chat", false));
             CheckBox newpf = new CheckBox("Use smart pathfinder", true);
-            
             menu.Add("newPF", newpf);
+            menu.AddSeparator(5);
+            menu.Add("disableAutoBuddy", new CheckBox("Disable AutoBuddy Movement ", false));
+            menu.AddLabel("Press f5 to apply, and It will follow cursor. I mainly use to DEBUG.");
+            menu.AddSeparator(5);
             newpf.OnValueChange += newpf_OnValueChange;
             CheckBox autoclose = new CheckBox("Auto close lol when the game ends. F5 to apply", false);
             property2.GetSetMethod(true).Invoke(autoclose, new object[] { new Vector2(500, 20) });
@@ -103,12 +113,12 @@ namespace AutoBuddy
             menu.Add("reselectlane", new CheckBox("Reselect lane", false));
             menu.Add("debuginfo", new CheckBox("Draw debug info(press f5 after)", true));
             menu.Add("l1", new Label("By Christian Brutal Sniper - Fixed by EnfermeraSexy & TheYasuoMain"));
-            Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            menu.Add("l2",
-                new Label("Version " + v.Major + "." + v.Minor + " Build time: " + v.Build % 100 + " " +
-                          CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(v.Build / 100) + " " +
-                          (v.Revision / 100).ToString().PadLeft(2, '0') + ":" +
-                          (v.Revision % 100).ToString().PadLeft(2, '0')));
+            //Version v = Assembly.GetExecutingAssembly().GetName().Version;
+            //menu.Add("l2",
+            //    new Label("Version " + v.Major + "." + v.Minor + " Build time: " + v.Build % 100 + " " +
+            //              CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(v.Build / 100) + " " +
+            //              (v.Revision / 100).ToString().PadLeft(2, '0') + ":" +
+            //              (v.Revision % 100).ToString().PadLeft(2, '0')));
 
         }
 
@@ -123,8 +133,6 @@ namespace AutoBuddy
         //For Kalista
         private static void On_Update(EventArgs args)
         {
-
-            Chat.Print(Shop.CanShop);
 
             if (BlackSpear.IsOwned())
             {

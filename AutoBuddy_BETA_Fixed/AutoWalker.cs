@@ -22,6 +22,7 @@ namespace AutoBuddy
     internal static class AutoWalker
     {
         public static string GameID;
+        public static bool HasHeal, HasBarrier, HasGhost, HasFlash, HasTeleport, HasIgnite, HasSmite, HasExhaust;
         public static Spell.Active Ghost, Barrier, Heal, Recall;
         public static Spell.Skillshot Flash;
         public static Spell.Targeted Teleport, Ignite, Smite, Exhaust;
@@ -29,6 +30,9 @@ namespace AutoBuddy
         public static readonly Obj_HQ EneMyNexus;
         public static readonly AIHeroClient p;
         public static readonly Obj_AI_Turret EnemyLazer;
+        private static string sameChat;
+        private static int Time = 0;
+        private static int TimeStuck = 0;
         private static Orbwalker.ActiveModes activeMode = Orbwalker.ActiveModes.None;
         private static InventorySlot seraphs;
         private static int hpSlot;
@@ -36,6 +40,8 @@ namespace AutoBuddy
         private static List<Vector3> PfNodes;
         private static readonly NavGraph NavGraph;
         private static bool oldWalk;
+
+        public static bool ABDebug = false;
         public static bool newPF;
         public static EventHandler EndGame;
         static AutoWalker()
@@ -56,7 +62,11 @@ namespace AutoBuddy
 
             Orbwalker.DisableAttacking = false;
             Game.OnUpdate += Game_OnUpdate;
-            Orbwalker.OverrideOrbwalkPosition = () => Target;
+
+            if (!MainMenu.GetMenu("AB").Get<CheckBox>("disableAutoBuddy").CurrentValue)
+            {
+                Orbwalker.OverrideOrbwalkPosition = () => Target;
+            } 
             if (Orbwalker.HoldRadius > 130 || Orbwalker.HoldRadius < 80)
             {
                 Chat.Print("=================WARNING=================", Color.Red);
@@ -71,7 +81,14 @@ namespace AutoBuddy
             updateItems();
             oldOrbwalk();
             Game.OnTick += OnTick;
+            Chat.OnMessage += Chat_OnMessage;
+            Drawing.OnDraw += Drawing_OnDraw;
+
+
         }
+
+
+        
 
         public static bool Recalling()
         {
@@ -104,8 +121,36 @@ namespace AutoBuddy
 
         public static Vector3 Target { get; private set; }
 
+
+
+        private static void Chat_OnMessage(AIHeroClient sender, ChatMessageEventArgs args)
+        {
+            //Debug only
+            /*if (sender.IsMe && args.Message.Contains("heal"))
+            {
+                AutoWalker.UseHeal();
+            }
+            if (sender.IsMe && args.Message.Contains("ghost"))
+            {
+                AutoWalker.UseGhost();
+            }
+            if (sender.IsMe && args.Message.Contains("barrier"))
+            {
+                AutoWalker.UseBarrier();
+            }
+            if (sender.IsMe && args.Message.Contains("ignite"))
+            {
+                AutoWalker.UseIgnite();
+            }
+			*/
+
+        }
+
+
         private static void Game_OnUpdate(EventArgs args)
         {
+            
+
             if (activeMode == Orbwalker.ActiveModes.LaneClear)
             {
                 Orbwalker.ActiveModesFlags = (p.TotalAttackDamage < 150 &&
@@ -193,31 +238,41 @@ namespace AutoBuddy
         }
         public static void UseGhost()
         {
-            if (Ghost != null && Ghost.IsReady())
-                Chat.Print("GHOST");
-            Ghost.Cast();
+            if (HasGhost == true && Ghost.IsReady())
+            {
+                Ghost.Cast();
+            }   
         }
         public static void UseHPot()
         {
             updateItems();
-            if (hpSlot == -1) return;
-            p.InventoryItems[hpSlot].Cast();
-            hpSlot = -1;
+            if (!Player.HasBuff("RegenerationPotion"))
+            {
+                updateItems();
+                if (hpSlot == -1) return;
+                p.InventoryItems[hpSlot].Cast();
+                hpSlot = -1;
+            }
         }
         public static void UseBarrier()
         {
-            if (Barrier != null && Barrier.IsReady())
+            if (HasBarrier == true && Barrier.IsReady())
+            {
                 Barrier.Cast();
+            }
         }
         public static void UseHeal()
         {
-            if (Heal != null && Heal.IsReady())
-                Chat.Print("HEAL");
+            if (HasHeal == true && Heal.IsReady())
+            {
                 Heal.Cast();
+            }
+                
         }
         public static void UseIgnite(AIHeroClient target = null)
         {
-            if (Ignite == null || !Ignite.IsReady()) return;
+            if (!HasIgnite == true || !Ignite.IsReady()) return;
+
             if (target == null)target =
                     EntityManager.Heroes.Enemies.Where(en => en.Distance(p) < 600 + en.BoundingRadius)
                         .OrderBy(en => en.Health)
@@ -242,15 +297,47 @@ namespace AutoBuddy
             //Teleport = new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerteleport"), int.MaxValue);
             //Smite = new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("smite"), 600);
 
+            //    Recall = new Spell.Active(SpellSlot.Recall);
+            //    Barrier = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerbarrier")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerbarrier"));
+            //    Ghost = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerhaste")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerhaste"));
+            //    Flash = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerflash")) == null ? null : new Spell.Skillshot(ObjectManager.Player.GetSpellSlotFromName("summonerflash"), 600, SkillShotType.Circular);
+            //    Heal = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerheal")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerheal"), 600);
+            //    Ignite = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerdot")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerdot"), 600);
+            //    Exhaust = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerexhaust")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerexhaust"), 600);
+            //    Teleport = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerteleport")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerteleport"), int.MaxValue);
+            //    Smite = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("smite")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("smite"), 600);
+            //
             Recall = new Spell.Active(SpellSlot.Recall);
-            Barrier = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerbarrier")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerbarrier"));
-            Ghost = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerhaste")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerhaste"));
-            Flash = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerflash")) == null ? null : new Spell.Skillshot(ObjectManager.Player.GetSpellSlotFromName("summonerflash"), 600, SkillShotType.Circular);
-            Heal = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerheal")) == null ? null : new Spell.Active(ObjectManager.Player.GetSpellSlotFromName("summonerheal"), 600);
-            Ignite = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerdot")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerdot"), 600);
-            Exhaust = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerexhaust")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerexhaust"), 600);
-            Teleport = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("summonerteleport")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerteleport"), int.MaxValue);
-            Smite = Player.Spells.FirstOrDefault(sp => sp.SData.Name.Contains("smite")) == null ? null : new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("smite"), 600);
+            //InitHeal
+            var HealCheck = Player.Spells.FirstOrDefault(s => s.Name.ToLower().Contains("heal"));
+            if (HealCheck != null)
+            {
+                HasHeal = true;
+                Heal = new Spell.Active(HealCheck.Slot, 600);
+            }
+            //InitGhost
+            var GhostCheck = Player.Spells.FirstOrDefault(s => s.Name.ToLower().Contains("haste"));
+            if (GhostCheck != null)
+            {
+                HasGhost = true;
+                Ghost = new Spell.Active(GhostCheck.Slot);
+            }
+            //InitBarrier
+            var BarrierCheck = Player.Spells.FirstOrDefault(s => s.Name.ToLower().Contains("barrier"));
+            if (BarrierCheck != null)
+            {
+                HasBarrier = true;
+                Barrier = new Spell.Active(BarrierCheck.Slot);
+            }
+           // InitIgnite
+            var IgniteCheck = Player.Spells.FirstOrDefault(s => s.Name.ToLower().Contains("dot"));
+            if (IgniteCheck != null)
+            {
+                HasIgnite = true;
+                Ignite = new Spell.Targeted(IgniteCheck.Slot, 600);
+            }
+
+
         }
 
 
@@ -281,8 +368,53 @@ namespace AutoBuddy
                        (Game.Ping + adjustAnimation + RandGen.r.Next(maxAdditionalTime)) / 1000f;
         }
 
-        private static void OnTick(EventArgs args)
+
+        private static void OnDraw(EventArgs args)
         {
+            var timex = Game.CursorPos.X;
+            var timey = Game.CursorPos.Y;
+
+            string TimeString = Time.ToString();
+            Drawing.DrawText(200, 200, Color.Aqua, TimeString);
+        }
+
+
+    private static void OnTick(EventArgs args)
+        {
+            var turret = ObjectManager.Get<Obj_HQ>().First(tur => tur.IsAlly && tur.Name.Contains("HQ_T"));
+
+            if (Player.Instance.IsInRange(turret, 1000))
+            {
+                
+                Time++;
+                
+            }
+            else
+            {
+                Time = 0;
+            }
+
+            if (Time / 60 >= 6)
+            {
+                TimeStuck++;
+                Chat.Print("Stuck? Will f5 at 100: " + TimeStuck/30);
+
+            }
+            else
+            {
+                TimeStuck = 0;
+            }
+            
+            if (TimeStuck/30 >= 100)
+            {
+                Chat.Print("Closing game because your stuck :/");
+                Game.QuitGame();
+            }
+           
+            
+            
+
+
             if (PfNodes.Count != 0)
             {
                 Target = PfNodes[0];
@@ -299,10 +431,11 @@ namespace AutoBuddy
             if (!oldWalk||ObjectManager.Player.Position.Distance(Target) < holdRadius || Game.Time < nextMove) return;
             nextMove = Game.Time + movementDelay;
             Player.IssueOrder(GameObjectOrder.MoveTo, Target, true);
-
-
-
         }
+            
+
+    
+        
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

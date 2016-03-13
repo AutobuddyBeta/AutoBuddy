@@ -82,7 +82,6 @@ namespace AutoBuddy.MainLogics
 
         private void Game_OnTick(EventArgs args)
         {
-
            
             if (hits * 20 > AutoWalker.p.HealthPercent() || (hits2 >= 5 && AutoWalker.p.Level < 8 && AutoWalker.p.HealthPercent < 50 && !EntityManager.Heroes.Enemies.Any(en => en.IsVisible() && en.HealthPercent < 10 && en.Distance(AutoWalker.p) < current.myChamp.OptimalMaxComboDistance)))
             {
@@ -148,46 +147,47 @@ namespace AutoBuddy.MainLogics
                 AutoWalker.WalkTo(AutoWalker.p.Position.Away(enemyTurret, 1200));
                 AutoWalker.SetMode(Orbwalker.ActiveModes.Flee);
             }
-            /* Disable for now
-            
-            if (AutoWalker.p.HealthPercent<15&&AutoWalker.Ignite != null && AutoWalker.Ignite.IsReady())
+
+
+            if (AutoWalker.p.HealthPercent < 15 && AutoWalker.HasIgnite == true && AutoWalker.Ignite.IsReady())
             {
-                AIHeroClient i = EntityManager.Heroes.Enemies.FirstOrDefault(en => en.Health < 50 + 20*AutoWalker.p.Level&&en.Distance(AutoWalker.p)<600);
-               if (i != null) AutoWalker.UseIgnite(i);
+                AIHeroClient i = EntityManager.Heroes.Enemies.FirstOrDefault(en => en.Health < 50 + 20 * AutoWalker.p.Level && en.Distance(AutoWalker.p) < 600);
+                if (i != null) AutoWalker.UseIgnite(i);
             }
-            
+
             if (AutoWalker.p.HealthPercent < 10)
             {
                 if (AutoWalker.p.HealthPercent < 7)
                 {
+                    AutoWalker.UseHeal();
                     AutoWalker.UseBarrier();
-                    AutoWalker.UseSeraphs();
+                    //AutoWalker.UseSeraphs();
                 }
-                AutoWalker.UseHeal();
+                
             }
             
             if (EntityManager.Heroes.Enemies.Any(en => en.IsVisible() && en.Distance(AutoWalker.p) < 600))
             {
-                if (AutoWalker.p.HealthPercent < 30)
-                    AutoWalker.UseSeraphs();
+                //if (AutoWalker.p.HealthPercent < 30)
+                //    AutoWalker.UseSeraphs();
                 if (AutoWalker.p.HealthPercent < 25)
                     AutoWalker.UseBarrier();
                 if (AutoWalker.p.HealthPercent < 18)
                     AutoWalker.UseHeal();
             }
 
-            if (AutoWalker.Ghost!=null&&AutoWalker.Ghost.IsReady() && dangerValue > 20000)
+            if (AutoWalker.HasGhost == true && AutoWalker.Ghost.IsReady() && dangerValue > 20000)
                 AutoWalker.UseGhost();
             if (dangerValue > 10000)
             {
-                if (AutoWalker.p.HealthPercent < 45)
-                    AutoWalker.UseSeraphs();
+                //if (AutoWalker.p.HealthPercent < 45)
+                //    AutoWalker.UseSeraphs();
                 if (AutoWalker.p.HealthPercent < 30)
                     AutoWalker.UseBarrier();
                 if (AutoWalker.p.HealthPercent < 25)
                     AutoWalker.UseHeal();
             }
-            */
+            
             current.myChamp.Survi();
         }
 

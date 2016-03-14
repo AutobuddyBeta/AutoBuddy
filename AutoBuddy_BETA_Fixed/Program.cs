@@ -61,7 +61,8 @@ namespace AutoBuddy
             //Telemetry.Init(Path.Combine(SandboxConfig.DataDirectory
             //, "AutoBuddy"));
             
-            createFS();
+            // STILL CAUSING PROBLEMS :( 
+            //createFS();
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
             Chat.Print("Custom builds fixed, read EB post.");
             Core.DelayAction(Start, 5000);

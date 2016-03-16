@@ -383,9 +383,9 @@ namespace AutoBuddy
         {
             var turret = ObjectManager.Get<Obj_HQ>().First(tur => tur.IsAlly && tur.Name.Contains("HQ_T"));
 
-            if (Player.Instance.IsInRange(turret, 1000))
+            if (Player.Instance.IsInRange(turret, 2700))
             {
-                
+
                 Time++;
                 
             }
@@ -394,10 +394,10 @@ namespace AutoBuddy
                 Time = 0;
             }
 
-            if (Time / 60 >= 6)
+            if (Time / 60 >= 8)
             {
                 TimeStuck++;
-                Chat.Print("Stuck? Will f5 at 100: " + TimeStuck/30);
+                Chat.Print("Stuck? Will quit at 100: " + TimeStuck/30);
 
             }
             else

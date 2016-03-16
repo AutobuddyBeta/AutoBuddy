@@ -22,60 +22,55 @@ namespace AutoBuddy
 {
     internal static class Program
     {
-
         private static AIHeroClient myHero
         {
             get { return Player.Instance; }
         }
         private static Menu menu;
+        private static string loadTextureDir = SandboxConfig.DataDirectory + "AutoBuddy\\";
         private static IChampLogic myChamp;
         private static LogicSelector Logic { get; set; }
-        //For kalista
         public static Item BlackSpear;
-        public static int hpvaluePot; 
-
+        public static int hpvaluePot;
         public static void Main()
         {
-
-            
             Hacks.RenderWatermark = false;
+            if (File.Exists(loadTextureDir + "loadTexture"))
+            {
+                Hacks.DisableTextures = true;
+                ManagedTexture.OnLoad += (args) => { args.Process = false; };
+            }
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
         }
 
-      
-
-
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
-
-            
+            //AutoBlack Spear
             if (myHero.Hero == Champion.Kalista)
             {
                 BlackSpear = new Item(ItemId.The_Black_Spear);
                 Chat.Print("Auto Black Spear loaded! Thanks @Enelx");
                 Game.OnUpdate += On_Update;
             }
-
-
             //Causes freeze
             //Telemetry.Init(Path.Combine(SandboxConfig.DataDirectory
             //, "AutoBuddy"));
             
-            // STILL CAUSING PROBLEMS :( 
-            //createFS();
+            createFS();
+            Version v = Assembly.GetExecutingAssembly().GetName().Version;
+            string ABVersion = v.Major + "." + v.MajorRevision + "." + v.Minor + "." + v.MinorRevision;
+
+            Chat.Print("AutoBuddy:", System.Drawing.Color.White);
+            Chat.Print("Loaded Version: " + ABVersion, System.Drawing.Color.LimeGreen);
             Chat.Print("AutoBuddy: Starting in 5 seconds.");
-            Chat.Print("Custom builds fixed, read EB post.");
             Core.DelayAction(Start, 5000);
             menu = MainMenu.AddMenu("AUTOBUDDY", "AB");
             menu.Add("sep1", new Separator(1));
             CheckBox c =
                 new CheckBox("Call mid, will leave if other player stays on mid(only auto lane)", true);
-
             PropertyInfo property2 = typeof(CheckBox).GetProperty("Size");
-
             property2.GetSetMethod(true).Invoke(c, new object[] { new Vector2(500, 20) });
             menu.Add("mid", c);
-
             Slider s = menu.Add("lane", new Slider(" ", 1, 1, 4));
             string[] lanes =
             {
@@ -88,47 +83,70 @@ namespace AutoBuddy
                 {
                     sender.DisplayName = lanes[changeArgs.NewValue];
                 };
-            Slider hpValue = menu.Add("HPPot", new Slider("Minimum HP% to use Health Pot?", 43,1,100));
-            hpvaluePot = hpValue.CurrentValue;
-            hpValue.OnValueChange +=
-                delegate (ValueBase<int> sender, ValueBase<int>.ValueChangeArgs changeArgs)
-                {
-                    hpvaluePot = hpValue.CurrentValue;
-                };
+            menu.Add("reselectlane", new CheckBox("Reselect lane", false));
             menu.Add("disablepings", new CheckBox("Disable pings", false));
             menu.Add("disablechat", new CheckBox("Disable chat", false));
             CheckBox newpf = new CheckBox("Use smart pathfinder", true);
             menu.Add("newPF", newpf);
-            menu.AddSeparator(5);
-            menu.Add("disableAutoBuddy", new CheckBox("Disable AutoBuddy Movement ", false));
-            menu.AddLabel("Press f5 to apply, and It will follow cursor. I mainly use to DEBUG.");
-            menu.AddSeparator(5);
+            Slider hpValue = menu.Add("HPPot", new Slider("Minimum HP% to use Health Pot?", 43, 1, 100));
+            hpvaluePot = hpValue.CurrentValue;
+            hpValue.OnValueChange +=
+                delegate(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs changeArgs)
+                {
+                    hpvaluePot = hpValue.CurrentValue;
+                };
             newpf.OnValueChange += newpf_OnValueChange;
+            menu.AddSeparator(10);
+            menu.AddLabel("Turn on to improve RAM usage.");
+            CheckBox noTextures = new CheckBox("Don't load textures. Restart LoL to apply.");
+            menu.Add("noTextures", noTextures);
+            noTextures.OnValueChange += noTextures_OnValueChange;
+            menu.Add("sep2", new Separator(10));
+            menu.AddLabel("Champ will follow cursor. DON'T turn on if you are botting!");
+            menu.Add("disableAutoBuddy", new CheckBox("Disable AutoBuddy Movement. F5 to apply.", false));
+            menu.AddSeparator(5);
             CheckBox autoclose = new CheckBox("Auto close lol when the game ends. F5 to apply", false);
             property2.GetSetMethod(true).Invoke(autoclose, new object[] { new Vector2(500, 20) });
-            menu.AddSeparator(5);
             menu.Add("autoclose", autoclose);
             menu.AddSeparator(5);
-            menu.Add("sep2", new Separator(170));
-            menu.Add("oldWalk", new CheckBox("Use old orbwalking(press f5 after)", false));
-            menu.Add("reselectlane", new CheckBox("Reselect lane", false));
-            menu.Add("debuginfo", new CheckBox("Draw debug info(press f5 after)", true));
-            menu.Add("l1", new Label("By Christian Brutal Sniper - Fixed by EnfermeraSexy & TheYasuoMain"));
-            //Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            //menu.Add("l2",
-            //    new Label("Version " + v.Major + "." + v.Minor + " Build time: " + v.Build % 100 + " " +
-            //              CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(v.Build / 100) + " " +
-            //              (v.Revision / 100).ToString().PadLeft(2, '0') + ":" +
-            //              (v.Revision % 100).ToString().PadLeft(2, '0')));
-
+            menu.Add("oldWalk", new CheckBox("Use old orbwalking. F5 to apply", false));
+            menu.Add("debuginfo", new CheckBox("Draw debug info. F5 to apply", true));
+            menu.Add("l1", new Label("By Christian Brutal Sniper - Maintained by TheYasuoMain"));
+            menu.Add("l2", new Label("Version: " + ABVersion));
         }
-
-
-
 
         static void newpf_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
         {
             AutoWalker.newPF = args.NewValue;
+        }
+        static void noTextures_OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
+        {
+            //Creates a file so that AutoBuddy can check on load if the user doesn't want textures.. :) Thanks @Finndev!
+            try
+            {
+                if (!Directory.Exists(loadTextureDir))
+                {
+                    Directory.CreateDirectory(loadTextureDir);
+                }
+                if (MainMenu.GetMenu("AB").Get<CheckBox>("noTextures").CurrentValue == true)
+                {
+                    if (!File.Exists(loadTextureDir + "loadTexture"))
+                    {
+                        File.Create(loadTextureDir + "loadTexture");
+                    }
+                }
+                if (MainMenu.GetMenu("AB").Get<CheckBox>("noTextures").CurrentValue == false)
+                {
+                    if (File.Exists(loadTextureDir + "loadTexture"))
+                    {
+                        File.Delete(loadTextureDir + "loadTexture");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Load Texture Error: '{0}'", e);
+            }
         }
 
         //For Kalista
@@ -276,24 +294,26 @@ namespace AutoBuddy
 
         private static void createFS()
         {
-            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
-            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
-            //System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
-
-            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy"))
+            try
             {
-                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
+                if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy"))
+                {
+                    System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy");
 
+                }
+                if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds"))
+                {
+                    System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
+                }
+                if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills"))
+                {
+                    System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
+                }
             }
-            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds"))
+            catch (Exception e)
             {
-                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Builds");
+                Console.WriteLine("CreateFS Error: '{0}'", e);
             }
-            if (!Directory.Exists(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills"))
-            {
-                System.IO.Directory.CreateDirectory(SandboxConfig.DataDirectory + "\\AutoBuddy\\Skills");
-            }
-
         }
     }
 }

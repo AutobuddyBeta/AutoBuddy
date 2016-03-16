@@ -56,7 +56,8 @@ namespace AutoBuddy
             //Telemetry.Init(Path.Combine(SandboxConfig.DataDirectory
             //, "AutoBuddy"));
             
-            createFS();
+            //STILL BROKEN ;(
+            //createFS();
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             string ABVersion = v.Major + "." + v.MajorRevision + "." + v.Minor + "." + v.MinorRevision;
 

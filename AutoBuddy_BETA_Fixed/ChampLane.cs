@@ -5,9 +5,7 @@ namespace AutoBuddy
     enum Lane
     {
         Unknown,
-        Top,
         Mid,
-        Bot,
         HQ,
         Spawn
     }
